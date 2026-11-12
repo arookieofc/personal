@@ -1,7 +1,7 @@
 import { Bot, Code2, Cpu, Layers, Server, Terminal } from 'lucide-react'
 import type { Post, Profile, Project, SitePayload } from './types'
 
-export const GITHUB_URL = 'https://github.com/a-rookie-of-C-language'
+export const GITHUB_URL = 'https://github.com/arookieofc'
 
 export const organizationMemberships = [
   {
@@ -116,7 +116,7 @@ export const curatedProjects: Project[] = [
     name: 'Personal Blog Studio',
     description: '个人主页与作品集静态站点，使用 React TypeScript 构建，覆盖简历、文章入口、作品列表和项目案例。',
     url: '',
-    repoUrl: 'https://github.com/a-rookie-of-C-language',
+    repoUrl: 'https://github.com/arookieofc',
     techStack: 'React, TypeScript, Vite, Static Site',
     featured: true,
   },
@@ -125,7 +125,7 @@ export const curatedProjects: Project[] = [
     name: 'rust-spring',
     description: 'Rust 后端框架实验，围绕 IoC、配置、路由宏、组件注册和 Spring 风格启动体验组织。',
     url: '',
-    repoUrl: 'https://github.com/a-rookie-of-C-language/rust-spring',
+    repoUrl: 'https://github.com/arookieofc/rust-spring',
     techStack: 'Rust, Procedural Macro, IoC, HTTP Server',
     featured: true,
   },
@@ -134,7 +134,7 @@ export const curatedProjects: Project[] = [
     name: 'AIGateway',
     description: 'Rust 实现的高并发模型网关与限流计费系统，覆盖租户 API Key、Redis 多维限流、Token 配额、PostgreSQL 用量审计和 OpenAI-compatible Provider 适配。',
     url: '',
-    repoUrl: 'https://github.com/a-rookie-of-C-language/AI_Gateway',
+    repoUrl: 'https://github.com/arookieofc/AI_Gateway',
     techStack: 'Rust, Axum, Tokio, Redis, PostgreSQL, SQLx, Reqwest, SSE, DDD',
     featured: true,
   },
@@ -143,7 +143,7 @@ export const curatedProjects: Project[] = [
     name: 'ferryllm',
     description: 'LLM 协议中间件，用统一 IR 适配 OpenAI 兼容接口、Anthropic 风格请求、工具调用和流式输出。',
     url: 'https://docs.rs/ferryllm/latest/ferryllm/',
-    repoUrl: 'https://github.com/a-rookie-of-C-language/ferryllm',
+    repoUrl: 'https://github.com/arookieofc/ferryllm',
     techStack: 'Rust, LLM, OpenAI API, Anthropic, Tool Calling',
     featured: true,
   },
@@ -152,7 +152,7 @@ export const curatedProjects: Project[] = [
     name: 'cxxmcp',
     description: 'C++ MCP SDK，围绕 JSON-RPC、传输层、协议校验和示例工具构建可集成的 MCP 能力。',
     url: '',
-    repoUrl: 'https://github.com/a-rookie-of-C-language/cxxmcp',
+    repoUrl: 'https://github.com/arookieofc/cxxmcp',
     techStack: 'C++, MCP, JSON-RPC, SDK, CMake',
     featured: true,
   },
@@ -188,7 +188,7 @@ export const curatedProjects: Project[] = [
     name: 'Agentic RAG Tool System',
     description: '面向 Agent 调用的 RAG 工具系统，拆分 DAO、Service、Tool Schema、Runtime 和 Controller。',
     url: '',
-    repoUrl: 'https://github.com/a-rookie-of-C-language',
+    repoUrl: 'https://github.com/arookieofc',
     techStack: 'RAG, MCP, Agent Tool, Vector Search, CLI',
     featured: true,
   },
@@ -197,7 +197,7 @@ export const curatedProjects: Project[] = [
     name: 'arookieofcOS',
     description: 'Tauri 桌面环境实验，用 React UI 和 Rust 命令桥接系统信息、文件、终端和监控能力。',
     url: '',
-    repoUrl: 'https://github.com/a-rookie-of-C-language/arookieofcOS',
+    repoUrl: 'https://github.com/arookieofc/arookieofcOS',
     techStack: 'Tauri, React, Rust, IPC, Desktop',
     featured: false,
   },
@@ -206,7 +206,7 @@ export const curatedProjects: Project[] = [
     name: 'arookieofcMQ',
     description: 'Rust 消息队列实现练习，围绕生产消费、FIFO 队列、持久化和消息处理器抽象展开。',
     url: '',
-    repoUrl: 'https://github.com/a-rookie-of-C-language/arookieofcMQ',
+    repoUrl: 'https://github.com/arookieofc/arookieofcMQ',
     techStack: 'Rust, Message Queue, Producer Consumer, Storage',
     featured: false,
   },
@@ -215,7 +215,7 @@ export const curatedProjects: Project[] = [
     name: 'Advisor AI Platform',
     description: '全栈智能顾问平台，把前端、业务后端、RAG Agent 服务、向量检索和认证链路组合成完整系统。',
     url: '',
-    repoUrl: 'https://github.com/a-rookie-of-C-language',
+    repoUrl: 'https://github.com/arookieofc',
     techStack: 'React, Spring Boot, Python, RAG, PostgreSQL, pgvector',
     featured: true,
   },
@@ -224,28 +224,37 @@ export const curatedProjects: Project[] = [
     name: 'arookieofcDB',
     description: 'Rust 迷你 KV 数据库引擎，围绕 WAL、B+Tree、Checkpoint、命令执行和轻量 IoC 容器拆解数据库核心机制。',
     url: '',
-    repoUrl: 'https://github.com/a-rookie-of-C-language/arookieofcDB',
+    repoUrl: 'https://github.com/arookieofc/arookieofcDB',
     techStack: 'Rust, KV Store, WAL, B+Tree, Checkpoint, IoC',
+    featured: true,
+  },
+  {
+    id: 14,
+    name: 'niubash',
+    description: 'AI 原生的 Bash：真 bash 语法、真 Unix 命令、真 git，原生跑在 Windows / Linux / Android / macOS / 鸿蒙上，已正式上架 winget。',
+    url: '',
+    repoUrl: 'https://github.com/unixwin/niubash',
+    techStack: 'Rust, Shell, Bash, WinuxCmd, niu-git',
     featured: true,
   },
 ]
 
 export const projectEvidence: Record<string, { label: string; url: string }[]> = {
   'Personal Blog Studio': [
-    { label: 'GitHub repository', url: 'https://github.com/a-rookie-of-C-language/personal' },
+    { label: 'GitHub repository', url: 'https://github.com/arookieofc/personal' },
   ],
   'rust-spring': [
-    { label: 'GitHub repository', url: 'https://github.com/a-rookie-of-C-language/rust-spring' },
+    { label: 'GitHub repository', url: 'https://github.com/arookieofc/rust-spring' },
   ],
   AIGateway: [
-    { label: 'GitHub repository', url: 'https://github.com/a-rookie-of-C-language/AI_Gateway' },
+    { label: 'GitHub repository', url: 'https://github.com/arookieofc/AI_Gateway' },
   ],
   ferryllm: [
     { label: 'docs.rs crate', url: 'https://docs.rs/ferryllm/latest/ferryllm/' },
-    { label: 'GitHub repository', url: 'https://github.com/a-rookie-of-C-language/ferryllm' },
+    { label: 'GitHub repository', url: 'https://github.com/arookieofc/ferryllm' },
   ],
   cxxmcp: [
-    { label: 'GitHub repository', url: 'https://github.com/a-rookie-of-C-language/cxxmcp' },
+    { label: 'GitHub repository', url: 'https://github.com/arookieofc/cxxmcp' },
   ],
   WinuxCmd: [
     { label: 'GitHub repository', url: 'https://github.com/unixwin/WinuxCmd' },
@@ -258,19 +267,19 @@ export const projectEvidence: Record<string, { label: string; url: string }[]> =
     { label: 'GitHub repository', url: 'https://github.com/unixwin/rubash' },
   ],
   'Agentic RAG Tool System': [
-    { label: 'GitHub profile', url: 'https://github.com/a-rookie-of-C-language' },
+    { label: 'GitHub profile', url: 'https://github.com/arookieofc' },
   ],
   arookieofcOS: [
-    { label: 'GitHub repository', url: 'https://github.com/a-rookie-of-C-language/arookieofcOS' },
+    { label: 'GitHub repository', url: 'https://github.com/arookieofc/arookieofcOS' },
   ],
   arookieofcMQ: [
-    { label: 'GitHub repository', url: 'https://github.com/a-rookie-of-C-language/arookieofcMQ' },
+    { label: 'GitHub repository', url: 'https://github.com/arookieofc/arookieofcMQ' },
   ],
   'Advisor AI Platform': [
     { label: 'GitHub repository', url: 'https://github.com/ai-cqut/advisor-ai-platform' },
   ],
   arookieofcDB: [
-    { label: 'GitHub repository', url: 'https://github.com/a-rookie-of-C-language/arookieofcDB' },
+    { label: 'GitHub repository', url: 'https://github.com/arookieofc/arookieofcDB' },
   ],
 }
 
@@ -380,6 +389,11 @@ export const projectCaseEnhancements: Record<string, Pick<ProjectCaseCopy, 'high
     details: ['DbEngine 使用 Arc<RwLock<BPlusTree>> 保存索引，用 Mutex<WalManager> 串行化 WAL 写入。', 'WalManager 自管 000001.wal 文件、固定 header、变长 LogEntry、CRC32、64KB buffer、文件滚动和 sequence 恢复。', '命令层包含 set/get/delete builtins，执行流程按 register_args -> parse -> execute 拆分。'],
     decisions: ['WAL 选择追加文件和实时 fsync，第一阶段以一致性和学习价值优先。', 'Checkpoint 采用和 WAL 协同的恢复链路，启动时先加载 checkpoint 再 replay 更高 sequence 的日志。', 'IoC 从 rust-spring 最小迁移，使用 inventory + 全局 ApplicationContext 支撑组件注册。'],
   },
+  niubash: {
+    highlights: ['winget 已上架', '原生多平台', 'Bash 语法兼容', 'WinuxCmd / niu-git 集成'],
+    details: ['winget 包标识符 Unixwin.Niubash，1.4.3 为 Inno Setup 安装包，装完自动加 PATH 和 Windows Terminal 集成。', '一种 shell 语法打通 Windows / Linux / macOS，不用 pwsh / cmd。', '命令层复用 WinuxCmd，git 能力由 niu-git 提供。'],
+    decisions: ['选择 Rust 原生实现，不依赖 WSL / MSYS 模拟层。', 'Shell 语言层与命令层分离：niubash 管语法执行，WinuxCmd 管命令。'],
+  },
 }
 
 export const projectArchitectureLayers: Record<string, ProjectArchitectureLayer[]> = {
@@ -476,6 +490,13 @@ export const projectArchitectureLayers: Record<string, ProjectArchitectureLayer[
     { title: 'WAL 与恢复层', items: ['WalManager', 'WalHeader', 'LogEntry', 'CRC32', 'file roll', '64KB buffer', 'WalReader replay'] },
     { title: '一致性控制层', items: ['CheckpointManager', 'checkpoint sequence', 'cleanup_old_files', 'recover_from_wal', 'trade-off: consistency first'] },
   ],
+  niubash: [
+    { title: '用户入口层', items: ['niubash CLI', '交互式 REPL', '脚本执行'] },
+    { title: '语法前端层', items: ['Lexer', 'Parser', 'AST'] },
+    { title: '执行语义层', items: ['Executor', '展开', '重定向', '管道', '作业控制'] },
+    { title: '命令与工具层', items: ['WinuxCmd 命令集', 'niu-git', '内建命令'] },
+    { title: '平台适配层', items: ['Windows', 'Linux', 'Android', 'macOS', '鸿蒙'] },
+  ],
 }
 
 export const projectArchitectureRelations: Record<string, string[]> = {
@@ -492,6 +513,7 @@ export const projectArchitectureRelations: Record<string, string[]> = {
   arookieofcMQ: ['示例调用 API', 'API 创建消息对象', '消息进入队列实现', '生产消费线程协作并按阶段演进'],
   'Advisor AI Platform': ['角色进入受控菜单', '学生主线驱动日常事务', '考勤/反馈形成处置闭环', 'AI 读取知识与业务上下文辅助处理', '治理能力沉淀可追溯数据'],
   arookieofcDB: ['CLI 解析命令', 'IoC 初始化组件', '引擎先写 WAL 再改索引', 'B+Tree 持久化数据页', 'WAL replay 与 checkpoint 恢复'],
+  niubash: ['用户输入进入 shell', '解析为 AST', '执行器调度命令', '命令层提供 Unix 命令实现', '平台层做原生适配'],
 }
 
 export const projectCaseCopy: Record<string, ProjectCaseCopy> = {
@@ -618,6 +640,14 @@ export const projectCaseCopy: Record<string, ProjectCaseCopy> = {
     architecture: ['CLI / Commands', 'IoC ApplicationContext', 'DbEngine', 'B+Tree Storage', 'WAL / Checkpoint'],
     dataFlow: ['CLI 输入 set/get/delete', '命令解析并调用 DbEngine', '写请求追加 LogEntry 并 fsync', '更新 B+Tree 索引并可 sync 到 data.bpt', '启动时加载 checkpoint 并 replay WAL'],
   },
+  niubash: {
+    focus: 'AI 原生的 Bash：真 bash 语法、真 Unix 命令、真 git',
+    challenge: 'Windows 上没有原生好用的 Bash：PowerShell 和 cmd 语法各异，Git Bash 靠 MSYS 模拟层，WSL 又重。',
+    solution: '用 Rust 实现 Bash 兼容 shell，原生跑在 Windows / Linux / Android / macOS / 鸿蒙上；命令层复用 WinuxCmd，git 能力由 niu-git 提供。',
+    impact: '已正式上架 winget（Unixwin.Niubash），是 unixwin 家族面向用户的主入口。',
+    architecture: ['CLI 入口', 'Lexer / Parser', 'Executor', 'WinuxCmd 命令层', 'niu-git'],
+    dataFlow: ['用户输入命令', '解析为 AST', '执行器调度内建 / 外部命令', 'WinuxCmd 提供命令实现', '返回结果'],
+  },
 }
 
 export function projectCaseFor(project: Pick<Project, 'name' | 'techStack'>): ProjectCaseCopy {
@@ -669,3 +699,182 @@ export function projectSlug(project: Pick<Project, 'id' | 'name'>) {
 export function splitTechStack(value: string) {
   return value.split(',').map((item) => item.trim()).filter(Boolean)
 }
+
+// 新版主页（粘性侧栏布局）所需的数据，文案与数字以导出的新版静态站和 2026-11-13 的 GitHub 现查为准。
+export const CONTACT_EMAIL = 'arookieofc@gmail.com'
+
+export const homeTally = {
+  pullRequests: 420,
+  openideaPullRequests: 237,
+  familyStars: 557,
+  publicRepos: 42,
+}
+
+export const homeToday =
+  '一边把 niubash / rubash / WinuxCmd 三仓的 bug 往清零推（一 issue 一 PR、带回归测试、CI 全绿才合并），一边把自己的 agent 工作台 ADE 从 Electron 重构到 Tauri。'
+
+export const homeCreed = '不黑盒、不模拟层、跟 GNU 逐字节对齐。'
+
+export const homeManifesto = '全栈是表面，后端是骨架，Agent 工作流是大脑。'
+
+export const homeAboutLead =
+  '主力 Rust 与 shell，专啃跨平台和 Windows 边缘问题：符号链接、UNC 路径、NFS、PowerShell 冲突——别人绕开的，我逐项对齐。我是 unixwin 家族的共同维护者（整个家族只有两位维护者），也是 openidea 的协作者、非作者第一贡献者。平时在重庆理工大学 · ai-cqut，参与 unixwin 与 EfficiencAI 两个组织。'
+
+export const homeTerminalTitle = 'niubash — ~/arookieofc'
+
+export const homeTerminalLines: { kind: 'cmd' | 'out'; text: string }[] = [
+  { kind: 'cmd', text: 'whoami' },
+  { kind: 'out', text: 'arookieofc' },
+  { kind: 'cmd', text: 'cat focus.txt' },
+  { kind: 'out', text: '# AI Agent 系统 · 后端基础设施 · 全栈' },
+  { kind: 'out', text: '# 跨平台 shell · coreutils · 开发工具' },
+]
+
+export const familyIntro =
+  '全球独此一家的跨平台 shell 平台——一种 shell 语法打通 Windows / Linux / macOS，不用 PowerShell、不用 cmd，也没有 WSL / MSYS 模拟层，全是原生实现。'
+
+export const familyProjects: {
+  name: string
+  repoUrl: string
+  description: string
+  metricValue: string
+  metricLabel: string
+  install?: string
+  badge?: string
+  extra?: string
+}[] = [
+  {
+    name: 'niubash',
+    repoUrl: 'https://github.com/unixwin/niubash',
+    description: 'AI 原生的 Bash：真 bash 语法、真 Unix 命令、真 git，原生跑在 Windows / Linux / Android / macOS / 鸿蒙上，已正式上架 winget。',
+    metricValue: '★ 265',
+    metricLabel: 'Rust shell 本体',
+    install: 'winget install Unixwin.Niubash',
+    badge: 'winget 已上架',
+  },
+  {
+    name: 'WinuxCmd',
+    repoUrl: 'https://github.com/unixwin/WinuxCmd',
+    description: '家族的起点（2026 年 1 月建仓，比 niubash 还早）。每个命令都拿 GNU 原版做 oracle 逐项差分对齐，单文件约 3.8MB。',
+    metricValue: '★ 272',
+    metricLabel: 'C++ coreutils',
+    extra: '176 命令 · 1,924 选项',
+  },
+  {
+    name: 'rubash',
+    repoUrl: 'https://github.com/unixwin/rubash',
+    description: '从零写的 GNU Bash 5.3 兼容 shell 引擎，Rust 实现、可嵌入，用 GNU 自己的测试语料逐字节量兼容度。',
+    metricValue: '★ 20',
+    metricLabel: 'Rust Bash 5.3 兼容',
+    extra: 'shell 引擎',
+  },
+]
+
+export const familyExtraMembers = '家族其余成员：niu-git、wpm（包管理）、oh-my-niu，官网 unixwin.dev。'
+
+export const featuredWorkNames = ['AIGateway', 'ferryllm', 'Advisor AI Platform', 'arookieofcDB']
+
+export const featuredWorkMetrics: Record<string, string> = {
+  AIGateway: '网关 · 限流 · 计费',
+  ferryllm: '中间件 · 协议适配',
+  'Advisor AI Platform': '全栈 · 平台型项目',
+  arookieofcDB: '存储 · 数据库引擎',
+}
+
+export const workshopItems = [
+  'rust-spring（Rust 后端框架实验）',
+  'cxxmcp（C++ MCP SDK）',
+  'Agentic RAG Tool System',
+  'arookieofcMQ（消息队列）',
+  'arookieofcOS（Tauri 桌面环境）',
+  'WinuxSH（unixwin 的先声）',
+  'Personal Blog Studio（本站）',
+]
+
+export const upstreamContributions = [
+  {
+    name: 'l0ng-ai/openidea',
+    url: 'https://github.com/l0ng-ai/openidea',
+    description: 'Rust 重写的 IntelliJ 风格 IDE。贡献榜第二、非作者贡献者第一，2026 年 11 月拿到协作者级 write 权限；贡献覆盖 VCS、terminal、agents、markdown、build、CI。',
+    metricValue: '237 个 PR',
+    metricLabel: '项目 ★ 8,733',
+  },
+  {
+    name: 'uutils/coreutils',
+    url: 'https://github.com/uutils/coreutils',
+    description: 'GNU coreutils 的 Rust 重写。修复 Windows 目录符号链接的递归删除（PR #12642）等 3 个提交已合入 main。',
+    metricValue: '3 提交合入',
+    metricLabel: '项目 ★ 24,360',
+  },
+  {
+    name: 'microsoft/coreutils',
+    url: 'https://github.com/microsoft/coreutils',
+    description: '提过 10 个 PR、3 个已合并：find / 被当成 DOS find、卸载不因 PowerShell 失败而失败、保留 PowerShell profile 符号链接（后两个与 Leonard Hecker 联合署名）。',
+    metricValue: '3 PR 合并',
+    metricLabel: '项目 ★ 5,374',
+  },
+  {
+    name: 'nushell/reedline',
+    url: 'https://github.com/nushell/reedline',
+    description: 'PR #1044 已合并：给 list_menu 加了 DescriptionPosition，控制描述文本的摆放位置。',
+    metricValue: '1 PR 合并',
+    metricLabel: '项目 ★ 832',
+  },
+]
+
+export const homeTimeline: { date: string; title: string; text: string; certUrl?: string }[] = [
+  {
+    date: '2024-06',
+    title: '蓝桥杯全国总决赛 · 优秀奖',
+    text: '第十五届蓝桥杯，Java 软件开发大学 B 组——竞赛这条线先于开源这条线。',
+    certUrl: '/award-bluebridge-2024.jpg',
+  },
+  {
+    date: '2024-10',
+    title: '入驻 GitHub',
+    text: '账号建立（2026 年 11 月由 a-rookie-of-C-language 改名为 arookieofc）。从数据结构、Java 课程设计这些练手仓库开始。',
+  },
+  {
+    date: '2025-08',
+    title: '中国机器人及人工智能大赛全国总决赛 · 一等奖',
+    text: '第二十七届，机器人任务挑战赛（自主巡航），随重庆理工大学代表队夺冠。',
+    certUrl: '/award-craic-2025.png',
+  },
+  {
+    date: '2026-01',
+    title: 'WinuxCmd 建仓，unixwin 家族起点',
+    text: '先有命令层：把 Unix 命令原生搬到 Windows。两个月后（2026-03）niubash 建仓，补上 shell 语言层。',
+  },
+  {
+    date: '2026-06',
+    title: '上游贡献陆续合入',
+    text: 'reedline #1044、uutils/coreutils 的符号链接修复、microsoft/coreutils 的三个 PR 先后合入——清一色 Windows 边缘问题。',
+  },
+  {
+    date: '2026-09',
+    title: 'niubash 进 winget',
+    text: '我提交的 winget 上架 PR 被合并进 microsoft/winget-pkgs；后续 1.4.3 换成正经 Inno Setup 安装包，装完自动加 PATH 和 Windows Terminal 集成。',
+  },
+  {
+    date: '2026-11',
+    title: '成为 openidea 协作者',
+    text: '在 l0ng-ai/openidea 累计 237 个 PR 后，拿到协作者级 write 权限，是这个 8,700+ star 项目的第一位外部维护者。',
+  },
+]
+
+export const homeNowIntro =
+  'ADE — Agent Development Environment，我正在做的 agent 工作台。出发点很实际：现在人已经很少亲手写代码，但全交给 AI 又是黑盒——所以需要一个轻量编辑器：看代码、看 diff、做简单修改，desktop、Pad、手机三端联通，在哪改其他端都同步。ADE 依托 Orca 做二次开发（它已有 AI agent 那部分，好过从零写），目前正把 Electron 重构为 Tauri，已适配安卓。'
+
+export const homeNowItems = [
+  '修 bug — niubash / rubash / WinuxCmd 三仓逐个清：一 issue 一 PR、每个修复带回归测试、CI 全绿才合并。',
+  '守上游 — openidea 协作者日常，评审和合入社区 PR。',
+  '看趋势 — 每天过一遍 GitHub 趋势榜，只认真工程量，不认首日 star。',
+]
+
+export const homeStackExtras = '另外常碰的：Shell / Bash 兼容性、Go、Windows 平台 internals、Tauri / Electron。'
+
+export const findMeLinks = [
+  { label: 'GitHub', url: 'https://github.com/arookieofc' },
+  { label: 'X', url: 'https://x.com/arookieofc' },
+  { label: 'unixwin.dev', url: 'https://unixwin.dev' },
+]
