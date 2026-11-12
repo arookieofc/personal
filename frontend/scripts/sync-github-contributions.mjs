@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const outputPath = resolve(__dirname, '../public/github-contributions.json')
-const login = process.env.GITHUB_LOGIN || 'a-rookie-of-C-language'
+const login = process.env.GITHUB_LOGIN || 'arookieofc'
 const token = process.env.GITHUB_TOKEN || process.env.GH_TOKEN
 
 async function githubSearchPage(type, page) {

@@ -1,23 +1,41 @@
 import { useDeferredValue, useEffect, useMemo, useState } from 'react'
-import { BrowserRouter, Link, Outlet, Route, Routes, useParams } from 'react-router-dom'
+import { BrowserRouter, Link, Outlet, Route, Routes, useLocation, useParams } from 'react-router-dom'
 import {
   ArrowLeft,
   BriefcaseBusiness,
+  Check,
+  Copy,
   Download,
   ExternalLink,
-  FileText,
   GitBranch,
   Mail,
-  MapPin,
   Search,
 } from 'lucide-react'
 import { MarkdownContent } from './MarkdownContent'
 import {
+  CONTACT_EMAIL,
   GITHUB_URL,
   awardCertificates,
   deploymentNotes,
   emptyProfile,
+  familyExtraMembers,
+  familyIntro,
+  familyProjects,
+  featuredWorkMetrics,
+  featuredWorkNames,
+  findMeLinks,
   focusCards,
+  homeAboutLead,
+  homeCreed,
+  homeManifesto,
+  homeNowIntro,
+  homeNowItems,
+  homeStackExtras,
+  homeTally,
+  homeTerminalLines,
+  homeTerminalTitle,
+  homeTimeline,
+  homeToday,
   organizationMemberships,
   projectCaseFor,
   projectEvidence,
@@ -28,48 +46,13 @@ import {
   stackHighlights,
   staticPosts,
   staticSite,
+  upstreamContributions,
+  workshopItems,
 } from './siteContent'
 import type { Post } from './types'
 import './App.css'
 
 const routerBasename = import.meta.env.BASE_URL.replace(/\/$/, '') || '/'
-
-type GitHubContribution = {
-  kind: 'pull_request' | 'issue'
-  title: string
-  url: string
-  repository: string
-  number: number
-  state: 'open' | 'closed' | 'merged'
-  createdAt: string
-  updatedAt: string
-  closedAt: string | null
-  mergedAt: string | null
-}
-
-type GitHubContributionPayload = {
-  login: string
-  generatedAt: string | null
-  summary: {
-    pullRequests: number
-    mergedPullRequests: number
-    openPullRequests: number
-    issues: number
-    openIssues: number
-    closedIssues: number
-    totalPullRequests?: number
-    totalIssues?: number
-  }
-  pullRequests: GitHubContribution[]
-  issues: GitHubContribution[]
-}
-
-type RepositoryActivity = {
-  repository: string
-  pullRequests: GitHubContribution[]
-  issues: GitHubContribution[]
-  updatedAt: string
-}
 
 function App() {
   return (
@@ -89,8 +72,10 @@ function App() {
 }
 
 function PublicLayout() {
+  const location = useLocation()
+  const isHome = location.pathname === '/'
   return (
-    <div className="site-shell">
+    <div className={isHome ? 'site-shell site-shell-home' : 'site-shell'}>
       <a className="skip-link" href="#main">跳到主要内容</a>
       <header className="topbar">
         <Link to="/" className="brand"><BrandAvatar /> arookieofc</Link>
@@ -115,312 +100,274 @@ function BrandAvatar() {
   )
 }
 
+function CopyEmailButton() {
+  const [copied, setCopied] = useState(false)
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(CONTACT_EMAIL)
+    } catch {
+      const textarea = document.createElement('textarea')
+      textarea.value = CONTACT_EMAIL
+      document.body.appendChild(textarea)
+      textarea.select()
+      document.execCommand('copy')
+      document.body.removeChild(textarea)
+    }
+    setCopied(true)
+    window.setTimeout(() => setCopied(false), 2000)
+  }
+  return (
+    <button type="button" className="copy-email-btn" onClick={copy}>
+      {copied ? <Check size={15} /> : <Copy size={15} />}
+      {copied ? '已复制' : CONTACT_EMAIL}
+    </button>
+  )
+}
+
 function Home() {
-  const site = staticSite
   const { posts } = usePostIndex()
-  const profile = site.profile || emptyProfile
-  const featuredPosts = posts.slice(0, 3)
-  const projects = site.projects
+  const profile = staticSite.profile || emptyProfile
+  const projects = staticSite.projects
+  const latestPosts = [...posts]
+    .sort((a, b) => (b.created_at || '').localeCompare(a.created_at || ''))
+    .slice(0, 6)
+  const featuredWorks = featuredWorkNames.flatMap((name) => {
+    const project = projects.find((item) => item.name === name)
+    return project ? [project] : []
+  })
 
   return (
-    <main id="main">
-      <section className="hero-section identity-hero">
-        <div className="hero-copy">
-          <p className="eyebrow">全栈 / AI Agent / 后端系统</p>
-          <h1>{profile.displayName}</h1>
-          <p className="headline">{profile.headline}</p>
-          <p className="bio">{profile.bio}</p>
-          <p className="membership-line">
-            member of{' '}
-            {organizationMemberships.map((org, index) => (
-              <span key={org.url}>
-                <a href={org.url} target="_blank">{org.label}</a>
-                {index < organizationMemberships.length - 1 ? ', ' : ''}
-              </span>
-            ))}
+    <main id="main" className="home-page">
+      <aside className="home-sidebar">
+        <div className="home-identity">
+          {profile.avatarUrl && (
+            <img className="home-avatar" src={profile.avatarUrl} alt={`${profile.displayName} 的头像`} />
+          )}
+          <h1>arookieofc</h1>
+          <p className="home-pitch">{profile.headline}</p>
+          <p className="home-nickname">「一个人刚学会 C 语言的菜鸟」</p>
+          <nav className="home-nav" aria-label="本页章节">
+            <a href="#about">关于</a>
+            <a href="#projects">精选项目</a>
+            <a href="#contrib">开源贡献</a>
+            <a href="#now">在做的事</a>
+            <a href="#timeline">时间线</a>
+            <a href="#stack">技术线</a>
+            <a href="#writing">写作与更多</a>
+          </nav>
+        </div>
+        <div className="home-tally">
+          <p>
+            两年里给 GitHub 全站提了 <b>{homeTally.pullRequests} 个 PR</b>，其中{' '}
+            <b>{homeTally.openideaPullRequests} 个给 openidea</b>；维护的家族仓库合计{' '}
+            <b>★{homeTally.familyStars}</b>，名下 <b>{homeTally.publicRepos} 个公开仓库</b>。
           </p>
-          <div className="hero-actions">
-            <a className="primary-btn" href={GITHUB_URL} target="_blank"><GitBranch size={18} /> GitHub 主页</a>
-            <Link className="secondary-btn" to="/resume"><FileText size={18} /> 在线简历</Link>
-            <Link className="secondary-btn" to="/blog"><FileText size={18} /> 阅读文章</Link>
-            {profile.email && <a className="secondary-btn" href={`mailto:${profile.email}`}><Mail size={18} /> 联系我</a>}
-          </div>
-          <div className="meta-row">
-            {profile.location && <span><MapPin size={16} /> {profile.location}</span>}
-            <a href={GITHUB_URL} target="_blank"><GitBranch size={16} /> github.com/a-rookie-of-C-language</a>
-            {site.socialLinks.map((item) => <a key={item.id} href={item.url} target="_blank">{item.label}</a>)}
-          </div>
-          <div className="metric-strip" aria-label="站点概览">
-            <span><strong>{posts.length}</strong> 篇文章</span>
-            <span><strong>{projects.length}</strong> 个作品</span>
-            <span><strong>{stackHighlights.length}</strong> 条技术线</span>
-          </div>
         </div>
-        <div className="hero-media terminal-collage">
-          <div className="avatar-card">
-            {profile.avatarUrl
-              ? <img src={profile.avatarUrl} alt={`${profile.displayName} 的头像`} />
-              : <span>AR</span>}
-          </div>
-          <div className="code-window">
-            <div className="window-dots"><span></span><span></span><span></span></div>
-            <pre>{`const builder = {
-  stack: ['Spring', 'Rust', 'TS', 'C++'],
-  focus: ['AI Agent', 'Backend', 'Tooling'],
-  mode: 'ship > posture'
-}`}</pre>
-          </div>
-          <div className="type-sample" aria-hidden="true">
-            <span>AGENT</span>
-            <span>BACKEND</span>
-            <span>SHIP</span>
-          </div>
-          <div className="notebook-card" aria-label="身份摘要">
-            <span className="dot-line"></span>
-            <strong>构建者画像</strong>
-            <p>全栈是表面，后端是骨架，Agent 工作流是大脑。</p>
-          </div>
+        <div className="home-side-links">
+          <a href={GITHUB_URL} target="_blank" rel="noreferrer">GitHub ↗</a>
+          <a href="https://x.com/arookieofc" target="_blank" rel="noreferrer">X ↗</a>
+          <a href="https://unixwin.dev" target="_blank" rel="noreferrer">unixwin.dev ↗</a>
         </div>
-      </section>
+        <CopyEmailButton />
+        <p className="home-credo">{homeCreed}</p>
+      </aside>
 
-      <section className="content-band organization-band">
-        <div className="section-head">
-          <div>
-            <p className="eyebrow">Organizations</p>
-            <h2>参与的工程组织</h2>
+      <div className="home-main">
+        <section id="about" className="home-section">
+          <div className="home-section-head">
+            <h2>关于</h2>
+            <code>~/about</code>
           </div>
-        </div>
-        <div className="organization-grid">
-          {organizationMemberships.map((org) => (
-            <a className="organization-card" href={org.url} target="_blank" key={org.url}>
-              <span>{org.label}</span>
-              <h3>{org.name}</h3>
-              <p>{org.description}</p>
-              <div className="tag-row">
-                {org.focus.map((item) => <span key={item}>{item}</span>)}
+          <p className="home-lead">{homeAboutLead}</p>
+          <div className="home-today">
+            <span className="home-today-label">TODAY · 最近在做</span>
+            <p>{homeToday}</p>
+          </div>
+          <div className="home-term">
+            <div className="home-term-title">{homeTerminalTitle}</div>
+            <div className="home-term-body">
+              {homeTerminalLines.map((line, index) => (
+                <div key={index} className={line.kind === 'cmd' ? 'home-term-cmd' : 'home-term-out'}>
+                  {line.kind === 'cmd' ? <span className="home-term-prompt">$</span> : null}
+                  {line.text}
+                </div>
+              ))}
+              <div className="home-term-cmd">
+                <span className="home-term-prompt">$</span>
+                <span className="home-term-cursor" />
               </div>
-            </a>
-          ))}
-        </div>
-      </section>
-
-      <section className="content-band identity-band">
-        <div className="section-head">
-          <div>
-            <p className="eyebrow">工程签名</p>
-            <h2>有取向的技术栈</h2>
+            </div>
           </div>
-        </div>
-        <div className="skill-matrix">
-          {stackHighlights.map((item) => {
-            const Icon = item.icon
-            return (
-              <article className="skill-card" key={item.label}>
-                <Icon size={22} />
-                <h3>{item.label}</h3>
-                <p>{item.detail}</p>
-              </article>
-            )
-          })}
-        </div>
-      </section>
+        </section>
 
-      <section className="content-band agent-grid-section">
-        <div className="section-head">
-          <div>
-            <p className="eyebrow">构建方式</p>
-            <h2>不做模板化作品集</h2>
+        <section id="projects" className="home-section">
+          <div className="home-section-head">
+            <h2>精选项目</h2>
+            <code>~/projects</code>
           </div>
-        </div>
-        <div className="agent-grid">
-          {focusCards.map((card, index) => (
-            <article className="agent-card" key={card.title}>
-              <span>{String(index + 1).padStart(2, '0')}</span>
-              <h3>{card.title}</h3>
-              <p>{card.text}</p>
-            </article>
-          ))}
-          <a className="github-panel" href={GITHUB_URL} target="_blank">
-            <GitBranch size={28} />
-            <strong>a-rookie-of-C-language</strong>
-            <p>查看公开代码轨迹。</p>
-            <ExternalLink size={18} />
-          </a>
-        </div>
-      </section>
-
-      <GitHubActivity />
-
-      <AwardCertificates />
-
-      <section className="content-band">
-        <div className="section-head">
-          <div>
-            <p className="eyebrow">最近文章</p>
-            <h2>思考记录</h2>
-          </div>
-          <Link to="/blog">全部文章</Link>
-        </div>
-        <div className="post-grid">
-          {featuredPosts.map((post, index) => <PostCard key={post.id} post={post} index={index + 1} />)}
-          {featuredPosts.length === 0 && <EmptyState text="还没有发布文章，可以在后台发布第一篇。" />}
-        </div>
-      </section>
-
-      <section className="content-band">
-        <div className="section-head">
-          <div>
-            <p className="eyebrow">精选作品</p>
-            <h2>作品集</h2>
-          </div>
-        </div>
-        <div className="project-grid">
-          {projects.map((project) => (
-            <article className="project-card" key={project.id}>
-              <div><BriefcaseBusiness size={18} /><h3>{project.name}</h3></div>
-              <p>{project.description}</p>
-              <small>{project.techStack}</small>
-              <div className="card-actions">
-                <Link to={`/projects/${projectSlug(project)}`}>详情</Link>
-                {project.url && <a href={project.url} target="_blank">访问</a>}
-                {project.repoUrl && <a href={project.repoUrl} target="_blank">源码</a>}
+          <p className="home-section-intro">{familyIntro}</p>
+          {familyProjects.map((project) => (
+            <article key={project.name} className="home-row">
+              <div className="home-row-body">
+                <h3>
+                  <a href={project.repoUrl} target="_blank" rel="noreferrer">{project.name} ↗</a>
+                </h3>
+                <p>{project.description}</p>
+                {project.install ? <code className="home-install">$ {project.install}</code> : null}
+                {project.badge ? <span className="home-badge">{project.badge}</span> : null}
+                {project.extra ? <span className="home-extra">{project.extra}</span> : null}
+              </div>
+              <div className="home-row-metric">
+                <strong>{project.metricValue}</strong>
+                <span>{project.metricLabel}</span>
               </div>
             </article>
           ))}
-          {!projects.length && <EmptyState text="作品集会显示在这里。" />}
-        </div>
-      </section>
+          {featuredWorks.map((project) => (
+            <article key={project.name} className="home-row">
+              <div className="home-row-body">
+                <h3>
+                  <Link to={`/projects/${projectSlug(project)}`}>{project.name}</Link>
+                </h3>
+                <p>{project.description}</p>
+                <div className="tag-row">
+                  {splitTechStack(project.techStack).map((tech) => <span key={tech}>{tech}</span>)}
+                </div>
+              </div>
+              <div className="home-row-metric">
+                <strong>{featuredWorkMetrics[project.name] ?? ''}</strong>
+              </div>
+            </article>
+          ))}
+          <p className="home-note">{familyExtraMembers}</p>
+          <p className="home-workshop">
+            <span className="home-workshop-label">工坊里还在磨的：</span>
+            {workshopItems.join(' · ')}
+          </p>
+        </section>
+
+        <section id="contrib" className="home-section">
+          <div className="home-section-head">
+            <h2>开源贡献</h2>
+            <code>~/contrib</code>
+          </div>
+          <p className="home-section-intro">主战场之外的上游贡献——清一色 Windows 边缘问题。</p>
+          {upstreamContributions.map((item) => (
+            <article key={item.name} className="home-row">
+              <div className="home-row-body">
+                <h3>
+                  <a href={item.url} target="_blank" rel="noreferrer">{item.name} ↗</a>
+                </h3>
+                <p>{item.description}</p>
+              </div>
+              <div className="home-row-metric">
+                <strong>{item.metricValue}</strong>
+                <span>{item.metricLabel}</span>
+              </div>
+            </article>
+          ))}
+        </section>
+
+        <section id="now" className="home-section">
+          <div className="home-section-head">
+            <h2>在做的事</h2>
+            <code>~/now</code>
+          </div>
+          <p className="home-lead">{homeNowIntro}</p>
+          <ul className="home-list">
+            {homeNowItems.map((item) => <li key={item}>{item}</li>)}
+          </ul>
+          <p className="home-subhead">做东西的三条取向</p>
+          <ul className="home-list">
+            {focusCards.map((card) => (
+              <li key={card.title}>
+                <strong>{card.title}</strong> — {card.text}
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <section id="timeline" className="home-section">
+          <div className="home-section-head">
+            <h2>时间线</h2>
+            <code>~/timeline</code>
+          </div>
+          <ol className="home-timeline">
+            {homeTimeline.map((entry) => (
+              <li key={entry.date} className="home-timeline-item">
+                <span className="home-timeline-date">{entry.date}</span>
+                <div className="home-timeline-body">
+                  <h3>{entry.title}</h3>
+                  <p>{entry.text}</p>
+                  {entry.certUrl ? (
+                    <img className="home-cert" src={entry.certUrl} alt={entry.title} loading="lazy" />
+                  ) : null}
+                </div>
+              </li>
+            ))}
+          </ol>
+        </section>
+
+        <section id="stack" className="home-section">
+          <div className="home-section-head">
+            <h2>技术线</h2>
+            <code>~/stack</code>
+          </div>
+          <ul className="home-list">
+            {stackHighlights.map((item) => (
+              <li key={item.label}>
+                <strong>{item.label}</strong> — {item.detail}
+              </li>
+            ))}
+          </ul>
+          <p className="home-note">{homeStackExtras}</p>
+          <p className="home-manifesto">{homeManifesto}</p>
+        </section>
+
+        <section id="writing" className="home-section">
+          <div className="home-section-head">
+            <h2>写作与更多</h2>
+            <code>~/writing</code>
+          </div>
+          {latestPosts.length > 0 ? (
+            <ul className="home-writing">
+              {latestPosts.map((post) => (
+                <li key={post.slug}>
+                  <Link to={`/blog/${post.slug}`}>{post.title}</Link>
+                  <span>{post.created_at.slice(0, 10)}</span>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="home-note">文章列表正在加载。</p>
+          )}
+          <p className="home-note">
+            <Link to="/blog">全部文章 →</Link>
+          </p>
+          <div className="home-orgs">
+            {organizationMemberships.map((org) => (
+              <a key={org.url} className="home-org-card" href={org.url} target="_blank" rel="noreferrer">
+                <strong>{org.name}</strong>
+                <span>{org.description}</span>
+                <span className="home-org-meta">{org.focus.join(' · ')}</span>
+              </a>
+            ))}
+          </div>
+        </section>
+
+        <footer className="home-footer">
+          <div className="home-findme">
+            <span>find me</span>
+            {findMeLinks.map((link) => (
+              <a key={link.label} href={link.url} target="_blank" rel="noreferrer">{link.label} ↗</a>
+            ))}
+          </div>
+          <p>© 2026 arookieofc · GitHub 数据快照 2026-11-13。</p>
+          <p>用 Noto Sans SC 与 JetBrains Mono 排版。</p>
+        </footer>
+      </div>
     </main>
   )
-}
-
-function AwardCertificates() {
-  return (
-    <section className="content-band awards-band">
-      <div className="section-head">
-        <div>
-          <p className="eyebrow">Awards</p>
-          <h2>获奖证书</h2>
-        </div>
-      </div>
-      <div className="award-grid">
-        {awardCertificates.map((award) => (
-          <article className="award-card" key={award.imageUrl}>
-            <a className="award-image-link" href={award.imageUrl} target="_blank" aria-label={`查看 ${award.title}`}>
-              <img src={award.imageUrl} alt={award.title} />
-            </a>
-            <div>
-              <span>{award.date}</span>
-              <h3>{award.title}</h3>
-              <p>{award.subtitle}</p>
-              <small>{award.issuer}</small>
-            </div>
-          </article>
-        ))}
-      </div>
-    </section>
-  )
-}
-
-function GitHubActivity() {
-  const [data, setData] = useState<GitHubContributionPayload | null>(null)
-  const repositories = useMemo(() => data ? groupByRepository(data) : [], [data])
-
-  useEffect(() => {
-    let cancelled = false
-    fetch(`${import.meta.env.BASE_URL}github-contributions.json`, { cache: 'no-store' })
-      .then((response) => response.ok ? response.json() : null)
-      .then((payload: GitHubContributionPayload | null) => {
-        if (!cancelled) setData(payload)
-      })
-      .catch(() => {
-        if (!cancelled) setData(null)
-      })
-    return () => { cancelled = true }
-  }, [])
-
-  if (!data || (!data.pullRequests.length && !data.issues.length)) return null
-
-  return (
-    <section className="content-band github-activity-band">
-      <div className="section-head">
-        <div>
-          <p className="eyebrow">GitHub Activity</p>
-          <h2>公开协作记录</h2>
-        </div>
-        {data.generatedAt && <span className="activity-updated">更新于 {formatDate(data.generatedAt)}</span>}
-      </div>
-      <div className="activity-summary">
-        <span><strong>{data.summary.pullRequests}</strong> total PRs</span>
-        <span><strong>{data.summary.mergedPullRequests}</strong> merged PRs</span>
-        <span><strong>{data.summary.openPullRequests}</strong> open PRs</span>
-        <span><strong>{data.summary.issues}</strong> total issues</span>
-        <span><strong>{data.summary.openIssues}</strong> open issues</span>
-        <span><strong>{repositories.length}</strong> repos</span>
-      </div>
-      <div className="repository-activity-list">
-        {repositories.map((repository, index) => (
-          <details className="repository-activity" open={index < 3} key={repository.repository}>
-            <summary>
-              <span>{repository.repository}</span>
-              <small>
-                {repository.pullRequests.length} PRs · {repository.issues.length} issues · 更新于 {formatDate(repository.updatedAt)}
-              </small>
-            </summary>
-            <div className="repo-contribution-grid">
-              <ContributionList title={`Pull Requests (${repository.pullRequests.length})`} items={repository.pullRequests} />
-              <ContributionList title={`Issues (${repository.issues.length})`} items={repository.issues} />
-            </div>
-          </details>
-        ))}
-      </div>
-    </section>
-  )
-}
-
-function ContributionList({ title, items }: { title: string; items: GitHubContribution[] }) {
-  return (
-    <section className="contribution-panel">
-      <h3>{title}</h3>
-      <div className="contribution-list">
-        {items.length === 0 && <span className="contribution-empty">暂无记录</span>}
-        {items.map((item) => (
-          <a href={item.url} target="_blank" className="contribution-item" key={item.url}>
-            <span className={`contribution-state ${item.state}`}>{stateLabel(item.state)}</span>
-            <strong>{item.title}</strong>
-            <small>{item.repository} #{item.number} · {formatDate(item.updatedAt)}</small>
-          </a>
-        ))}
-      </div>
-    </section>
-  )
-}
-
-function groupByRepository(data: GitHubContributionPayload): RepositoryActivity[] {
-  const grouped = new Map<string, RepositoryActivity>()
-  for (const item of [...data.pullRequests, ...data.issues]) {
-    const current = grouped.get(item.repository) || {
-      repository: item.repository,
-      pullRequests: [],
-      issues: [],
-      updatedAt: item.updatedAt,
-    }
-    if (item.kind === 'pull_request') current.pullRequests.push(item)
-    else current.issues.push(item)
-    if (new Date(item.updatedAt) > new Date(current.updatedAt)) current.updatedAt = item.updatedAt
-    grouped.set(item.repository, current)
-  }
-  return [...grouped.values()].sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime())
-}
-
-function stateLabel(state: GitHubContribution['state']) {
-  if (state === 'merged') return 'merged'
-  if (state === 'closed') return 'closed'
-  return 'open'
-}
-
-function formatDate(value: string) {
-  return new Intl.DateTimeFormat('zh-CN', { month: '2-digit', day: '2-digit' }).format(new Date(value))
 }
 
 function ResumePage() {
